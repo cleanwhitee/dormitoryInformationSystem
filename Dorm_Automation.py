@@ -63,7 +63,7 @@ class Dorm_Automation:
 
         print("Oda Bilgileri:")
         for i, ogrenci in enumerate(self.students_stack):
-            print(f"Oda {i + 1} - {ogrenci['ad']} {ogrenci['soyad']}")
+            print(f"Oda {i + 1} - {ogrenci['ad']} {ogrenci['soyad']}") #girilen oda bilgilerine göre düzelt
 
     def ogrenci_sil(self):
         if not self.students_stack:
