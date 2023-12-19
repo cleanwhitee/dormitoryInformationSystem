@@ -115,8 +115,7 @@ class Dorm_Automation:
             print("Yemek Yiyen Öğrenciler:")
             for ogrenci in yemek_yiyenler:
                 print(f"{ogrenci['ad']} {ogrenci['soyad']}")
-
-                
+                                
     def ucret_odendi_olarak_isaretle(self):
         if not self.students_stack:
             print("Dolulukta öğrenci bulunmamaktadır.")
