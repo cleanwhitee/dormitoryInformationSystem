@@ -9,7 +9,7 @@ class Dorm_Automation:
         ad = input("Öğrenci adı: ")
         soyad = input("Öğrenci soyadı: ")
         oda_no = input("Oda numarası: ")
-        izin_gunu = 30  
+        izin_gunu = 0
         ucret_odendi = input("Ücret ödendi mi? (Evet/Hayır): ").lower() == "evet"
 
         ogrenci = {
