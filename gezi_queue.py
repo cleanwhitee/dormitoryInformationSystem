@@ -26,7 +26,7 @@ class EventPlanningSystem:
             return
 
         if ticket_count <= 0:
-            print("Invalid ticket count. Please reserve at least 1 ticket.")
+            print("Invalid ticket count. Lütfen en az 1 bilet rezerve ediniz.")
             return
 
         if event_name not in self.students_tickets:
