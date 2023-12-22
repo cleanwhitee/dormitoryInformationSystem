@@ -161,7 +161,7 @@ while True:
     print("3. İzin Günü Azalt")
     print("4. Öğrenci Bilgilerini Göster")
     print("5. Oda Bilgilerini Göster")
-    print("6. Öğrenci Sil")
+    print("6. Öğrenci Silin")
     print("7. Ücret Ödendi Sorgula")
     print("8. İzin Al")
     print("9. Yemek Yedi Olarak İşaretle")
