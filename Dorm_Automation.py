@@ -1,15 +1,12 @@
-from queue import Queue
-
 class Dorm_Automation:
     def __init__(self):
         self.students_stack = []
-        self.izin_kuyruklari = {}  
 
     def ogrenci_ekle(self):
         ad = input("Öğrenci adı: ")
         soyad = input("Öğrenci soyadı: ")
         oda_no = input("Oda numarası: ")
-        izin_gunu = 0
+        izin_gunu = int(input("İzin günü sayısı: "))
         ucret_odendi = input("Ücret ödendi mi? (Evet/Hayır): ").lower() == "evet"
 
         ogrenci = {
@@ -22,42 +19,8 @@ class Dorm_Automation:
             "yemek_yedi": False,
         }
 
-        self.izin_kuyruklari[id(ogrenci)] = Queue()
-
         self.students_stack.append(ogrenci)
         print(f"{ad} {soyad} başarıyla eklendi.")
-
-    def izin_gunu_azalt(self):
-        if not self.students_stack:
-            print("Dolulukta öğrenci bulunmamaktadır.")
-            return
-
-        index = len(self.students_stack) - 1
-        ogrenci = self.students_stack[index]
-
-        if ogrenci["izin_aliyor"]:
-
-            ogrenci_id = id(ogrenci)
-            if not self.izin_kuyruklari[ogrenci_id].empty():
-                ogrenci["izin_gunu"] = self.izin_kuyruklari[ogrenci_id].get()
-                print(f"{ogrenci['ad']} {ogrenci['soyad']} için izin günü azaltıldı. Yeni izin günü: {ogrenci['izin_gunu']}")
-            else:
-                print(f"{ogrenci['ad']} {ogrenci['soyad']} için kullanılabilir izin günü kalmadı.")
-        else:
-            print(f"{ogrenci['ad']} {ogrenci['soyad']} izin almadığı için izin günü azaltılamaz.")
-
-    def izin_al(self):
-        if not self.students_stack:
-            print("Dolulukta öğrenci bulunmamaktadır.")
-            return
-
-        index = len(self.students_stack) - 1
-        ogrenci = self.students_stack[index]
-
-        ogrenci_id = id(ogrenci)
-        self.izin_kuyruklari[ogrenci_id].put(ogrenci["izin_gunu"])
-        ogrenci["izin_aliyor"] = True
-        print(f"{ogrenci['ad']} {ogrenci['soyad']} izin aldı. İzin günü kuyruğa eklendi.")
 
     def ogrenci_cikisi(self):
         if not self.students_stack:
@@ -66,6 +29,15 @@ class Dorm_Automation:
 
         cikan_ogrenci = self.students_stack.pop()
         print(f"{cikan_ogrenci['ad']} {cikan_ogrenci['soyad']} çıkış yapıldı.")
+
+    def izin_gunu_azalt(self):
+        if not self.students_stack:
+            print("Dolulukta öğrenci bulunmamaktadır.")
+            return
+
+        index = len(self.students_stack) -1  
+        self.students_stack[index]["izin_gunu"] -= 1
+        print("İzin günü azaltıldı.")
 
     def ogrenci_bilgilerini_goster(self):
         if not self.students_stack:
@@ -92,7 +64,7 @@ class Dorm_Automation:
         print("Oda Bilgileri:")
         for i, ogrenci in enumerate(self.students_stack):
             print(f"Oda {i + 1} - {ogrenci['ad']} {ogrenci['soyad']}") #girilen oda bilgilerine göre düzelt
-            
+
     def ogrenci_sil(self):
         if not self.students_stack:
             print("Dolulukta öğrenci bulunmamaktadır.")
@@ -113,6 +85,14 @@ class Dorm_Automation:
         else:
             print("Ücret ödenmedi.")
 
+    def izin_al(self):
+        if not self.students_stack:
+            print("Dolulukta öğrenci bulunmamaktadır.")
+            return
+
+        index = len(self.students_stack) -1  
+        self.students_stack[index]["izin_aliyor"] = True
+        print("İzin alındı.")
 
     def yemek_yedi_olarak_isaretle(self):
         if not self.students_stack:
