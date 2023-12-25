@@ -13,20 +13,20 @@ class EventPlanningSystem:
 
     def show_events(self):
         if not self.events:
-            print("No events available.")
+            print("Etkinlik bulunmamaktadır")
             return
 
-        print("Available Events:")
+        print("Etkinlikler:")
         for event_name, event_info in self.events.items():
             print(f"{event_name} - Date: {event_info['date']}, Ticket Limit: {event_info['ticket_limit']}")
 
     def reserve_ticket(self, student_name, event_name, ticket_count):
         if event_name not in self.events:
-            print(f"Event '{event_name}' does not exist.")
+            print(f"'{event_name}' adlı etkinlik bulunmuyor")
             return
 
         if ticket_count <= 0:
-            print("Invalid ticket count. Lütfen en az 1 bilet rezerve ediniz.")
+            print("Yanlış bilet sayısı girdiniz. Lütfen en az 1 bilet rezerve ediniz.")
             return
 
         if event_name not in self.students_tickets:
@@ -36,11 +36,11 @@ class EventPlanningSystem:
             self.students_tickets[event_name][student_name] = 0
 
         if self.students_tickets[event_name][student_name] + ticket_count > self.events[event_name]["ticket_limit"]:
-            print(f"Cannot reserve {ticket_count} tickets for '{event_name}'. Exceeds ticket limit.")
+            print(f"'{event_name}' etkinliği için {ticket_count} bilet ayrılamıyor. Bilet sınırını aştınız.")
             return
 
         self.reservation_queue.append((student_name, event_name, ticket_count))
-        print(f"Reservation request for {ticket_count} tickets for '{event_name}' added to the queue.")
+        print(f"'{event_name}' etkinliği için {ticket_count} adet bilet rezervasyon isteği kuyruğa eklendi.")
 
     def process_reservations(self):
         if not self.reservation_queue:
