@@ -8,7 +8,7 @@ class EventPlanningSystem:
         self.bus_count = 0
 
     def add_event(self, event_name, event_date, ticket_limit):
-        self.events[event_name] = {"date": event_date, "ticket_limit": ticket_limit}
+        self.events[event_name] = {"tarih": event_date, "bilet sınırı": ticket_limit}
         print(f"Event '{event_name}' added on {event_date} with a ticket limit of {ticket_limit}.")
 
     def show_events(self):
@@ -18,7 +18,7 @@ class EventPlanningSystem:
 
         print("Etkinlikler:")
         for event_name, event_info in self.events.items():
-            print(f"{event_name} - Date: {event_info['date']}, Ticket Limit: {event_info['ticket_limit']}")
+            print(f"{event_name} - Tarih: {event_info['tarih']}, Bilet sınırı: {event_info['ticket_limit']}")
 
     def reserve_ticket(self, student_name, event_name, ticket_count):
         if event_name not in self.events:
@@ -44,7 +44,7 @@ class EventPlanningSystem:
 
     def process_reservations(self):
         if not self.reservation_queue:
-            print("No reservations to process.")
+            print("Rezervasyon işlemi yok.")
             return
 
         student_name, event_name, ticket_count = self.reservation_queue.popleft()
@@ -59,25 +59,25 @@ class EventPlanningSystem:
             print(f"{student_name} has not reserved tickets for any events.")
             return
 
-        print(f"Tickets reserved by {student_name}:")
+        print(f"Bilet {student_name}tarafından rezerve edildi:")
         for event_name, ticket_count in self.students_tickets[student_name].items():
-            print(f"{event_name}: {ticket_count} tickets")
+            print(f"{event_name}: {ticket_count} bilet")
 
     def update_bus_count(self, new_bus_count):
         if new_bus_count < 0:
-            print("Invalid bus count. Please provide a non-negative value.")
+            print("Geçersiz otobüs mevcudu. Negatif değer girmediğinizden emin olunuz.")
             return
 
         self.bus_count = new_bus_count
-        print(f"Bus count updated to {new_bus_count}.")
+        print(f"Otobüs mevcudu {new_bus_count} olarak güncellendi.")
 
     def update_ticket_limit(self, event_name, new_ticket_limit):
         if event_name not in self.events:
-            print(f"Event '{event_name}' does not exist.")
+            print(f"Etkinlik '{event_name}' bulunamadı.")
             return
 
         if new_ticket_limit < 0:
-            print("Invalid ticket limit. Please provide a non-negative value.")
+            print("Geçersiz bilet sınırı.Negatif değer girmediğinizden emin olunuz.")
             return
 
         self.events[event_name]["ticket_limit"] = new_ticket_limit
@@ -85,47 +85,47 @@ class EventPlanningSystem:
 event_system = EventPlanningSystem()
 
 while True:
-    print("\nEvent Planning System Menu:")
-    print("1. Add Event")
-    print("2. Show Available Events")
-    print("3. Reserve Ticket")
-    print("4. Process Reservations")
-    print("5. Show Student's Tickets")
-    print("6. Update Bus Count")
-    print("7. Update Ticket Limit")
-    print("0. Exit")
+    print("\nEvent Planning System Menü:")
+    print("1. Etkinlik ekle")
+    print("2. Uygun etkinlikleri göster")
+    print("3. Bilet Rezervasyonu")
+    print("4. Rezervasyon İşlemleri")
+    print("5. Öğrencilerin biletlerini göster")
+    print("6. Otobüs mevcudunu güncelle")
+    print("7. Bilet sınırını güncelle")
+    print("0. Çıkış")
 
-    choice = input("Enter your choice: ")
+    choice = input("Seçiminizi giriniz: ")
 
     if choice == "1":
-        event_name = input("Enter event name: ")
-        event_date = input("Enter event date: ")
+        event_name = input("Etkinlik ismini giriniz: ")
+        event_date = input("Etkinlik tarihini giriniz: ")
         ticket_limit = int(input("Enter ticket limit: "))
         event_system.add_event(event_name, event_date, ticket_limit)
     elif choice == "2":
         event_system.show_events()
     elif choice == "3":
-        student_name = input("Enter student name: ")
-        event_name = input("Enter event name: ")
-        ticket_count = int(input("Enter ticket count: "))
+        student_name = input("Öğrenci ismi giriniz: ")
+        event_name = input("Etkinlik ismi giriniz: ")
+        ticket_count = int(input("Bilet mevcudunu giriniz: "))
         event_system.reserve_ticket(student_name, event_name, ticket_count)
     elif choice == "4":
         event_system.process_reservations()
     elif choice == "5":
-        student_name = input("Enter student name: ")
+        student_name = input("Öğrenci ismi giriniz: ")
         event_system.show_student_tickets(student_name)
     elif choice == "6":
-        new_bus_count = int(input("Enter new bus count: "))
+        new_bus_count = int(input("Yeni otobüs mevcudunu giriniz: "))
         event_system.update_bus_count(new_bus_count)
     elif choice == "7":
-        event_name = input("Enter event name: ")
-        new_ticket_limit = int(input("Enter new ticket limit: "))
+        event_name = input("Etkinlik ismini giriniz: ")
+        new_ticket_limit = int(input("Yeni bilet sınırını giriniz: "))
         event_system.update_ticket_limit(event_name, new_ticket_limit)
     elif choice == "0":
-        print("Exiting Event Planning System.")
+        print("Event Planning System`den çıkış yapılıyor,.")
         break
     else:
-        print("Invalid choice. Please try again.")
+        print("Geçersiz seçim, lütfen tekrar deneyin.")
 
 # Example Usage:
 #event_system = EventPlanningSystem()
